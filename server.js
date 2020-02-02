@@ -3,6 +3,15 @@ const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.json());
 
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+const mockPassword = 'superSecret';
+var mockPasswordHash='';
+bcrypt.hash(mockPassword, saltRounds, function(err, hash) {
+    // Store hash in your password DB.
+    mockPasswordHash = hash;
+  });
+
 const mockUserData=[
     {name:'Mark'},
     {name:'Jill'}
@@ -13,19 +22,23 @@ app.post('/login',function(req,res){
     const password=req.body.password;
 
     const mockUsername="billyTheKid";
-    const mockPassword="superSecret";
-
-    if (username===mockUsername && password===mockPassword){
-            res.json({
-                success: true,
-                message: 'password and username match!',
-                token: 'encrypted token goes here'
-            })
-    } else {
-            res.json({
-                success: false,
-                message: 'password and username do not match'
-            })
+    var isOk = false;
+    if (username===mockUsername){
+        bcrypt.compare(password, mockPasswordHash, function(err, result) {
+            isOk = result;
+            if (isOk){
+                res.json({
+                    success: true,
+                    message: 'password and username match!',
+                    token: 'encrypted token goes here'
+                })
+            } else {
+                    res.json({
+                        success: false,
+                        message: 'password and username do not match'
+                    })
+            }
+        });
     }
 })
 
