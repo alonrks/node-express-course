@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+util = require('util');
 const app = express();
 app.use(bodyParser.json());
 
@@ -7,6 +8,9 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const mockPassword = 'superSecret';
 var mockPasswordHash='';
+
+const server_version = 'v1.0';
+
 bcrypt.hash(mockPassword, saltRounds, function(err, hash) {
     // Store hash in your password DB.
     mockPasswordHash = hash;
@@ -47,6 +51,13 @@ app.get('/users', function(req,res){
         success: true,
         message: 'successfully got users. Nice!',
         users: mockUserData
+    })
+})
+
+app.get('/version', function(req,res){
+    res.json({
+        success: true,
+        message: util.format('The server version is %s', server_version)
     })
 })
 
