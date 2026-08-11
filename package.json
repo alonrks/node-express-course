@@ -1,7 +1,7 @@
 {
   "name": "node-express-course",
   "version": "1.0.0",
-  "description": "This is a reference for the NodeJS and Express intro tutorial. You will be pushing code into this repository. Each branch shows what your code should look like (if you get stuck).\r ## Setup",
+  "description": "This is a reference for the NodeJS and Express intro tutorial. You will be pushing code into this repository. Each branch shows what your code should look like (if you get stuck).[...]",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/3nGiNe/node-express-course#readme",
   "dependencies": {
-    "bcrypt": "^3.0.7",
-    "express": "^4.17.1"
+    "bcrypt": "^6.0.0",
+    "express": "^5.2.1"
   }
 }
